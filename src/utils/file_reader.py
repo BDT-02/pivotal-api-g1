@@ -1,9 +1,9 @@
 import os
 from src.utils.env_utils import EnvironmentUtil
-
 from src.utils.LoggerHandler import LoggerHandler
 
 logger = LoggerHandler.get_instance()
+
 
 class FileReader:
 

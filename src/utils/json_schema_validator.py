@@ -4,6 +4,7 @@ from src.utils.LoggerHandler import LoggerHandler
 
 logger = LoggerHandler.get_instance()
 
+
 def validate_json_schema(schema, json):
     try:
         validate(json, schema)
