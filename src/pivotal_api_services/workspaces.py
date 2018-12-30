@@ -21,24 +21,36 @@ class WorkspaceServices(PivotalServices):
 
     def get_workspaces(self):
         workspace_list = self.request_handler.get_request(endpoint=self.__workspace).json()
-        for workspace in workspace_list:
-            if not workspace['name'] in self.workspaces:
-                self.workspaces[workspace['name']] = workspace['id']
+        if workspace_list:
+            for workspace in workspace_list:
+                if not workspace['name'] in self.workspaces:
+                    self.workspaces[workspace['name']] = workspace['id']
+        else:
+            self.workspaces = {}
         return self.workspaces
 
     def get_workspace(self, id):
-        current_url = self.__workspace + "/" + id
-        workspace = self.request_handler.get_request(endpoint=current_url).json()
-        if not workspace['name'] in self.workspaces:
-            self.workspaces[workspace['name']] = workspace['id']
-        return workspace
+        current_url = self.__workspace + "/" + str(id)
+        response = self.request_handler.get_request(endpoint=current_url)
+
+        if response.status_code == 200:
+            workspace = response.json()
+            if not workspace['name'] in self.workspaces:
+                self.workspaces[workspace['name']] = workspace['id']
+
+        return response
 
     def get_workspace_schema(self):
         return StringHandler.convert_string_to_json(FileReader.get_file_content(self.__workspace_schema_path))
 
     def delete_all_workspaces(self):
-        self.get_workspaces()
+        # self.get_workspaces()
         for workspace in self.workspaces.values():
             url = self.__workspace + "/" + str(workspace)
             logger.info("Deleting %s" % url)
             self.request_handler.delete_request(endpoint=url)
+
+    def delete_workspace(self, id):
+        current_url = self.__workspace + "/" + str(id)
+        response = self.request_handler.delete_request(endpoint=current_url)
+        return response.status_code, response.reason
