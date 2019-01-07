@@ -1,0 +1,7 @@
+requests
+behave
+jsonschema
+simplejson
+PyYAML
+pycodestyle
+mock
