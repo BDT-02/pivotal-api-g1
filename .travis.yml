@@ -10,4 +10,5 @@ script:
   - pycodestyle
 
 branches:
-    only: develop
+  only:
+    - develop

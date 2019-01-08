@@ -31,6 +31,32 @@ class TestWorkspaces(unittest.TestCase):
         self.assertEquals(400, status_code)
         self.assertEquals(self._workspace_creation_failed(), workspace_json)
 
+    @patch('src.core.api.request_handler.RequestHandler.get_request')
+    def test_get_workspaces(self, mock_workspace):
+        mock_workspace.return_value.json.return_value = self._workspace_list()
+
+        expected_data = {"workspace_01": 12345, "workspace_03": 78965}
+
+        workspace_list = self.workspace.get_workspaces()
+        self.assertEquals(expected_data, workspace_list)
+
+    @patch('src.core.api.request_handler.RequestHandler.get_request')
+    def test_get_workspace(self, mock_workspace):
+        mock_workspace.return_value.json.return_value = self._workspace_object()
+
+        workspace_response = self.workspace.get_workspace(123)
+        self.assertEquals(self._workspace_object(), workspace_response.json())
+
+    @patch('src.core.api.request_handler.RequestHandler.delete_request')
+    def test_delete_workspace(self, mock_workspace):
+        mock_workspace.return_value.status_code = 404
+        mock_workspace.return_value.reason = "No Content"
+
+        status_code, reason = self.workspace.delete_workspace(123)
+
+        self.assertEquals(404, status_code)
+        self.assertEquals("No Content", reason)
+
     # Following methods returns mocked results
     @staticmethod
     def _workspace_object():
@@ -46,12 +72,21 @@ class TestWorkspaces(unittest.TestCase):
 
     @staticmethod
     def _workspace_list():
-        workspaces = {
-            "workspace_01": 12345,
-            "workspace_03": 78965,
-        }
+        response = [{
+            "kind": "workspace",
+            "id": 12345,
+            "name": "workspace_01",
+            "person_id": 789,
+            "project_ids": []
+        }, {
+            "kind": "workspace",
+            "id": 78965,
+            "name": "workspace_03",
+            "person_id": 789,
+            "project_ids": []
+        }]
 
-        return workspaces
+        return response
 
     @staticmethod
     def _workspace_creation_failed():
@@ -60,7 +95,3 @@ class TestWorkspaces(unittest.TestCase):
             "error": "One or more request parameters was missing or invalid."
         }
         return response
-
-
-if __name__ == '__main__':
-    unittest.main()

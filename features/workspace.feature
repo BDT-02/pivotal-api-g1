@@ -47,28 +47,3 @@ Feature: Work with workspaces
   Scenario: Delete all workspaces
     Given I delete all the workspaces
     Then verify the list is empty
-
-
-# Feature: Work with projects into workspaces
-  # Scenario: Add list of projects to a workspace
-  # Scenario: Same project can be on multiple workspaces
-  # Scenario: remove a project from a workspace
-  # Scenario: remove all projects from a workspace
-
-#  https://www.pivotaltracker.com/services/v5/my/workspaces/123456
-#  code 403 Forbidden
-#  {
-#    "code": "unauthorized_operation",
-#    "kind": "error",
-#    "error": "Authorization failure.",
-#    "general_problem": "You aren't authorized to access the requested resource.",
-#    "possible_fix": "Your project permissions are determined on the Project Membership page. If you are receiving this error you may be trying to access the wrong project, or the project API access is disabled, or someone listed as the project's Owner needs to change your membership type."
-#}
-
-#  https://www.pivotaltracker.com/services/v5/my/workspaces/12345644
-#  code 404 Not Found
-#    {
-#    "code": "unfound_resource",
-#    "kind": "error",
-#    "error": "The object you tried to access could not be found.  It may have been removed by another user, you may be using the ID of another object type, or you may be trying to access a sub-resource at the wrong point in a tree."
-#}
