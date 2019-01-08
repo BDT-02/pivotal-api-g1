@@ -7,7 +7,7 @@ from src.pivotal_api_services.projects import ProjectServices
 class TestProject(unittest.TestCase):
 
     def setUp(self):
-        self.workspace = ProjectServices()
+        self.project = ProjectServices()
 
     @patch('src.core.api.request_handler.RequestHandler.post_request')
     def test_create_project(self, mock_project):
@@ -15,10 +15,10 @@ class TestProject(unittest.TestCase):
         mock_project.return_value.json.return_value = self._project_object()
 
         data = {"name": "foobar"}
-        status_code, workspace_json = self.workspace.create_project(data)
+        status_code, project_json = self.project.create_project(data)
 
         self.assertEquals(200, status_code)
-        self.assertEquals(self._project_object(), workspace_json)
+        self.assertEquals(self._project_object(), project_json)
 
     # Following methods returns mocked results
     @staticmethod
