@@ -5,6 +5,9 @@ python:
 install:
   - pip install -r requirements.txt
 
+before_script:
+  - sed -i 's/TRACKER_TOKEN/'"$TRACKER_TOKEN"'/g' config.yml
+
 script:
   - pytest
   - behave features
@@ -12,8 +15,3 @@ script:
 branches:
   only:
     - develop
-
-env:
-  global:
-    - token=$TRACKER_TOKEN
-
