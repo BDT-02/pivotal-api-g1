@@ -5,3 +5,6 @@ Feature: showing off behave
         | name | First Project|
     Then I verify project creation status is 200
     And I verify project schema
+
+  Scenario: Delete projects
+    Given I delete all projects
