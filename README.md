@@ -1,31 +1,30 @@
-# katas
+# Pivotal API GP1
 
-def i_create_a_project(project_data):
-    CONTEXT.project_status, CONTEXT.project_response = project_service.create_project(project_data)
+This framework is part of BDTPython course, the target is to learn how to implement **behave** with python, validate json schemas, and generate a full regression report.
 
+Additionally we learned to create unittest with mocks and configure travis for CI. 
 
-def i_verify_project_creation_status_is(status_code):
-    assert CONTEXT.project_status is int(status_code), "Project Status code is {}".format(CONTEXT.project_status)
+##Full regression and reports
+Currently a full regression can be executed in a Windows environment through the **full_regression.bat** file once the project is cloned but take into account
+it is necessary to download the allure command line tool and set environment variables before run the regression script.
 
+First download the [allure-commandline_2.8.0](http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.8.0/allure-commandline-2.8.0.zip) and unzip it
+under the **C:/>** partition. You can also unzip it in another location but make sure to update the last line of **full_regression.bat** with the correct path.
 
-def i_verify_data_of_project_is_accurate(project_data):
-    actual_response = project_service.get_project(id=str(CONTEXT.project_response["id"]))
-    for key, value in project_data.items():
-        assert actual_response[key] == value, "Project data {} != {}".format(actual_response[key], value)
+Next, set a environment variable for **TRACKER_TOKEN**, it should contains the token you want to use to run the scenarios (required).
 
+e.g.
 
-def i_verify_project_schema():
-    actual_response = project_service.get_project(id=str(CONTEXT.project_response["id"]))
-    schema = project_service.get_project_schema()
-    schema_failure_reason, is_schema_valid = validate_json_schema(schema, actual_response)
-    BuiltIn().should_be_true(is_schema_valid, "Project Schema failed due to: {}".format(schema_failure_reason))
+`C:\>set TRACKER_TOKEN=22x2xx44x11x3xx1xx44`
 
-
-def i_delete_all_project
-    project_service.delete_all_projects()
+Finally, you can run full_regression.bat file, this will set the token into the config.yml file, execute the scenarios, and open the default browser to show the final report.
     
-    
-    
-To install:
-jsonschema
-simplejson
+##Python packages:
+
+* requests
+* behave
+* allure-behave
+* jsonschema
+* simplejson
+* PyYAML
+* mock
