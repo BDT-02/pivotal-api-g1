@@ -4,7 +4,8 @@ This framework is part of BDTPython course, the target is to learn how to implem
 
 Additionally we learned to create unittest with mocks and configure travis for CI. 
 
-##Full regression and reports
+### Full regression and reports
+
 Currently a full regression can be executed in a Windows environment through the **full_regression.bat** file once the project is cloned but take into account
 it is necessary to download the allure command line tool and set environment variables before run the regression script.
 
@@ -19,7 +20,7 @@ e.g.
 
 Finally, you can run full_regression.bat file, this will set the token into the config.yml file, execute the scenarios, and open the default browser to show the final report.
     
-##Python packages:
+### Python packages:
 
 * requests
 * behave
