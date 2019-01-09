@@ -7,8 +7,11 @@ install:
 
 script:
   - pytest
-  - pycodestyle
+  - behave features
 
 branches:
   only:
     - develop
+
+env:
+  secure: $TRACKER_TOKEN
