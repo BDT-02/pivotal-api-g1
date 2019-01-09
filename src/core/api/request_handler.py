@@ -31,6 +31,12 @@ class RequestHandler:
         response = self.requests_retry_session(session=self.session).delete(endpoint)
         return response
 
+    def put_request(self, endpoint, body):
+        logger.info("RequestHandler:: PUT  {}, {}, {}".format(endpoint, json.dumps(body), self.session.headers))
+        response = self.requests_retry_session(session=self.session).put(endpoint, json.dumps(body))
+        logger.info("RequestHandler:: PUT RESPONSE:: {}, {}".format(response.status_code, response.json()))
+        return response
+
     @property
     def main_url(self):
         return self.main_url
