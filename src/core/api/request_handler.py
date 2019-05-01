@@ -37,9 +37,6 @@ class RequestHandler:
         logger.info("RequestHandler:: PUT RESPONSE:: {}, {}".format(response.status_code, response.json()))
         return response
 
-    @property
-    def main_url(self):
-        return self.main_url
 
     def requests_retry_session(
             retries=3,

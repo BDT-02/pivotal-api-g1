@@ -2,3 +2,4 @@
 allure_result_folder/
 *.pyc
 *.log
+/venv/

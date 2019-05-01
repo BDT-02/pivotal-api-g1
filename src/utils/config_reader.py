@@ -5,7 +5,7 @@ class ConfigReader:
 
     def __init__(self, path='./config.yml'):
         self.__path = path
-        self.config = yaml.load(open(self.__path))
+        self.config = yaml.safe_load(open(self.__path))
 
     def get_config(self):
         return self.config
